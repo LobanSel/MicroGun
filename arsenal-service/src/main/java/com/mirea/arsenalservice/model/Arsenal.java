@@ -1,4 +1,4 @@
-package com.mirea.orderservice.model;
+package com.mirea.arsenalservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,20 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 @Entity
-@Table(name = "order_line_items")
+@Table(name = "arsenal")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderLineItems {
+public class Arsenal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String GunCode;
-    private BigDecimal price;
     private Integer quantity;
 }
