@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface ArsenalRepository extends JpaRepository<Arsenal, Long> {
-    List<Arsenal> findByGunCodeIn(List<String> GunCode);
+    List<Arsenal> findBygunCodeIn(List<String> gunCode);
 
 }

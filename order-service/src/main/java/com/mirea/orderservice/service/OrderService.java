@@ -1,5 +1,6 @@
 package com.mirea.orderservice.service;
 
+import com.mirea.orderservice.dto.ArsenalResponse;
 import com.mirea.orderservice.dto.OrderLineItemsDto;
 import com.mirea.orderservice.dto.OrderRequest;
 import com.mirea.orderservice.model.Order;
@@ -9,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +23,7 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final WebClient webClient;
 
     public void createOrder(OrderRequest orderRequest){
         Order order = new Order();
@@ -32,7 +36,24 @@ public class OrderService {
 
         order.setOrderLineItemsList(orderLineItems);
 
-        orderRepository.save(order);
+        List<String> gunCodes = order.getOrderLineItemsList().stream()
+                .map(OrderLineItems::getGunCode)
+                .toList();
+
+        ArsenalResponse[] arsenalResponsesArray = webClient.get()
+                .uri("http://localhost:8082/api/v1/arsenal",
+                        uriBuilder -> uriBuilder.queryParam("gunCode", gunCodes).build())
+                .retrieve()
+                .bodyToMono(ArsenalResponse[].class)
+                .block();
+
+        boolean allGunsAlreadyGet = Arrays.stream(arsenalResponsesArray).allMatch(ArsenalResponse::isAlreadyGet);
+
+        if (allGunsAlreadyGet){
+            orderRepository.save(order);
+        } else {
+            throw new IllegalArgumentException("Ствола нет в арсенале");
+        }
     }
 
     private OrderLineItems mapToDto (OrderLineItemsDto orderLineItemsDto) {

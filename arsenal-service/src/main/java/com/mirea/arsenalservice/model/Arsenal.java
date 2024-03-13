@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "arsenal")
+@Table
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,6 +17,6 @@ public class Arsenal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String GunCode;
+    private String gunCode;
     private Integer quantity;
 }

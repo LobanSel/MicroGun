@@ -19,7 +19,7 @@ public class OrderLineItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String GunCode;
+    private String gunCode;
     private BigDecimal price;
     private Integer quantity;
 }
