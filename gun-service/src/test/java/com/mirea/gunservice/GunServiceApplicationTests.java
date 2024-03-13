@@ -1,10 +1,10 @@
-package com.mirea.productservice;
+package com.mirea.gunservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProductServiceApplicationTests {
+class GunServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
