@@ -14,6 +14,7 @@
         <module name="api-gateway" />
         <module name="order-service" />
         <module name="gun-service" />
+        <module name="notify-service" />
         <module name="arsenal-service" />
       </profile>
     </annotationProcessing>
@@ -27,6 +28,7 @@
       <module name="arsenal-service" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
       <module name="gun-service" options="-parameters" />
+      <module name="notify-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
     </option>
   </component>
